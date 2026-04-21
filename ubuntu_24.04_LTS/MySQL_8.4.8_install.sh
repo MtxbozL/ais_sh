@@ -12,9 +12,9 @@ ROOT_PWD="MyNewPass123!" # 请修改密码
 # ================= 1. 环境准备（核心修复） =================
 echo "[$(date +%H:%M:%S)] 配置软件源并安装依赖..."
 # 1. 启用 universe 仓库（libaio1 位于该仓库）
-add-apt-repository universe -y || true
+echo "deb http://archive.ubuntu.com/ubuntu focal main universe" | sudo tee -a /etc/apt/sources.list
 # 2. 清理缓存+强制刷新源（解决源同步问题）
-apt clean && apt update --fix-missing -y
+sudo apt update
 # 3. 安装基础依赖（替换 libtinfo5 为 libtinfo6，Ubuntu 24.04 无 libtinfo5）
 apt install -y libaio1 libnuma1 libtinfo6 libncurses6 wget dpkg --no-install-recommends
 # 4. 修复 libtinfo5 + libncurses.so.5 依赖（Ubuntu 24.04 仅保留 v6 版本）
