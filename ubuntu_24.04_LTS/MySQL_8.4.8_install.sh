@@ -8,7 +8,7 @@ PACKAGE_NAME="mysql-${MYSQL_VERSION}-linux-glibc2.17-x86_64"
 TAR_FILE="${PACKAGE_NAME}.tar.xz"
 INSTALL_DIR="/usr/local/mysql"
 DATA_DIR="/data/mysql"
-ROOT_PWD="MyNewPass123!" # 请修改密码
+ROOT_PWD="123456" # 请修改密码
 # ================= 1. 环境准备（核心修复） =================
 echo "[$(date +%H:%M:%S)] 配置软件源并安装依赖..."
 # 1. 启用 universe 仓库（libaio1 位于该仓库）
