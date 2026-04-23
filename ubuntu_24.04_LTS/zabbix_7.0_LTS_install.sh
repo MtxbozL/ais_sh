@@ -354,10 +354,17 @@ server {
 EOF
 
 # 启用 Nginx 子配置
-sed -i 's/# include conf.d\/\*.conf;/include conf.d\/\*.conf;/' ${NGINX_INSTALL_DIR}/conf/nginx.conf
+# sed -i 's/# include conf.d\/\*.conf;/include conf.d\/\*.conf;/' ${NGINX_INSTALL_DIR}/conf/nginx.conf
 
 # 安装 PHP 8.3
 apt install -y php8.3-fpm php8.3-mysql php8.3-cli php8.3-common
+
+# 修改 PHP 配置 以满足zabbix7.0安装要求
+sed -i 's/^;*post_max_size =.*/post_max_size = 16M/' /etc/php/8.3/fpm/php.ini
+sed -i 's/^;*upload_max_filesize =.*/upload_max_filesize = 16M/' /etc/php/8.3/fpm/php.ini
+sed -i 's/^;*max_execution_time =.*/max_execution_time = 300/' /etc/php/8.3/fpm/php.ini
+sed -i 's/^;*max_input_time =.*/max_input_time = 300/' /etc/php/8.3/fpm/php.ini
+sed -i 's/^;*memory_limit =.*/memory_limit = 256M/' /etc/php/8.3/fpm/php.ini
 
 # 重启所有服务（修复：agent改为agent2）
 systemctl restart php8.3-fpm
